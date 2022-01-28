@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { ThemeProvider } from 'styled-components';
+import { darkTheme } from "./theme";
+import Router from "./routes/router";
+import { GlobalStyle } from "./GlobalStyle";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
