@@ -77,7 +77,7 @@ function Detail() {
               <span>$ {price.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
-          <Description>{info.description.length > 970 ? info.description.slice(0, 970) + "..." : info.description}</Description>
+          <Description>{info.description.length > 300 ? info.description.slice(0, 300) + "..." : info.description}</Description>
           <Overview>
             <OverviewItem>
               <span>Total Supply</span>
