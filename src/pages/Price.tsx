@@ -1,8 +1,8 @@
-import { SubTitle } from "../components/CustomElements";
+import { Title } from "../components/CustomElements";
 
 function Price() {
   return (
-    <SubTitle>Price</SubTitle>
+    <Title>Price</Title>
     );
 }
 

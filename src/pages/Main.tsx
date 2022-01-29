@@ -7,13 +7,15 @@ import {
   Container,
   Header,
   Title,
+  ThemeBtn,
   Loader,
   CoinList,
   Coin,
   Icon,
+  Footer,
 } from "../components/CustomElements";
 
-function Coins() {
+function Main() {
   const urlIcon = "https://cryptoicon-api.vercel.app/api/icon/";
   const { data: coins } = useQuery<ICoin[]>("coins", getCoins);
 
@@ -21,6 +23,7 @@ function Coins() {
     <Container>
       <Header>
         <Title>Coin - Tracker</Title>
+        <ThemeBtn />
       </Header>
       {coins ? (
         <CoinList>
@@ -37,8 +40,9 @@ function Coins() {
       ) : (
         <Loader />
       )}
+      <Footer />
     </Container>
   );
 }
 
-export default Coins;
+export default Main;

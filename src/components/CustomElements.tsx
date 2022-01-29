@@ -1,61 +1,173 @@
-import styled, { keyframes } from "styled-components";
-import loaderLogo from "../react.svg";
+import styled, { keyframes, ThemeContext } from "styled-components";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import loaderLogo from "../icons/react.svg";
+import backLight from "../icons/backLight.png";
+import backDark from "../icons/backDark.png";
+import lightTheme from "../icons/lightTheme.png";
+import darkTheme from "../icons/darkTheme.png";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 0 20vh 0;
-  margin: 0 auto;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: ${props => props.theme.bgColor};
+  color: ${props => props.theme.textColor};
+  transition: 0.5s;
 `;
 
 export const Header = styled.header`
+  height: 8vh;
+  min-height: 80px;
+  max-height: 120px;
+  grid-row: 1;
   background-color: ${props => props.theme.bgHeaderColor};
   color: ${props => props.theme.accentColor};
-  height: 100px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 20px;
-  margin-bottom: 5vh;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas:
+    "back   title     theme"
+    "back   subtitle  theme";
+  margin-bottom: 20px;
 `;
 
-export const Title = styled.h1`
-  font-size: 3rem;
+export const Title = styled.div`
+  grid-area: title;
+  font-size: 2.5rem;
   font-weight: 700;
+  text-align: center;
+  margin: 5px;
 `;
 
-export const SubTitle = styled.h2`
+export const SubTitle = styled.div`
+  grid-area: subtitle;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 500;
 `;
 
-const loaderLogoSpin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+export const BackBtn = (() => {
+  const { id } = useContext(ThemeContext);
+  const isLight = (id === "light");
 
-const LoaderLogo = styled.img.attrs({
-  src: `${loaderLogo}`
-})`
-  margin-bottom: 3vmin;
-  animation: ${loaderLogoSpin} infinite 5s linear;
-`;
+  const BackImg = styled.img`
+    height: 7vh;
+    min-height: 30px;
+    max-height: 70px;
+  `;
 
-const LoaderBox = styled.div`
-  width: 50vmin;
-`;
+  const BackBox = styled.div`
+    grid-area: back;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 100%;
+    cursor: pointer;
+    &:hover{
+      background-color: ${props => props.theme.hoverColor};
+    };
+  `;
+  
+  return (
+    <BackBox>
+      <Link to="/">
+        <BackImg src={`${isLight ? backLight : backDark}`} />
+      </Link>
+    </BackBox>
+  );
+});
+
+export const ThemeBtn = (() => {
+  const { id, setTheme } = useContext(ThemeContext);
+  const isLight = (id === "light");
+  
+  const ThemeImg = styled.img`
+    height: 5vh;
+    min-height: 40px;
+    max-height: 70px;
+    margin: 2px;
+  `;
+
+  const ThemeBox = styled.div`
+    grid-area: theme;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 10px 1.2vmin;
+    border-radius: 20%;
+    cursor: pointer;
+    &:hover{
+      background-color: ${props => props.theme.hoverColor};
+    };
+  `;
+  
+  return (
+    <ThemeBox onClick={setTheme}>
+      <ThemeImg src={`${isLight ? darkTheme : lightTheme}`} />
+      <p>{isLight ? "Dark" : "Light"}</p>
+    </ThemeBox>
+  );
+});
+
+export const Footer = (() => {
+  const Foot = styled.div`
+    grid-row: 3;
+    max-height: 10vh;
+    background-color: ${props => props.theme.bgHeaderColor};
+    font-size: 0.8rem;
+    text-align: center;
+    letter-spacing: 0.07rem;
+    line-height: 1.2;
+    padding: 10px 0;
+    margin-top: 50px;
+  `;
+  
+  return (
+    <Foot>
+      <p>Designed by LeeQ19</p>
+      <p>Built using React</p>
+      <p>Data provided by Coinpaprika</p>
+    </Foot>
+  );
+});
 
 export const Loader = (() => {
+  const loaderLogoSpin = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  `;
+
+  const LoaderLogo = styled.img.attrs({
+    src: `${loaderLogo}`
+  })`
+    width: 50vmin;
+    max-width: 500px;
+    margin-bottom: 3vmin;
+    animation: ${loaderLogoSpin} infinite 5s linear;
+  `;
+
+  const LoaderBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `;
+  
   return (
     <LoaderBox>
       <LoaderLogo />
@@ -64,35 +176,51 @@ export const Loader = (() => {
   );
 });
 
-export const CoinList = styled.ul``;
+export const CoinList = styled.ul`
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+`;
 
 export const Coin = styled.li`
   background-color: ${props => props.theme.boxColor};
-  width: 80vw;
+  width: 85vw;
+  max-width: 900px;
   display: flex;
   align-items: center;
   font-size: 1.5rem;
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 20px;
-  transition: background-color 0.2s ease-in-out;
+  transition: 0.5s;
+  cursor: pointer;
   &:hover {
     background-color: ${props => props.theme.hoverColor};
   }
 `;
 
 export const Icon = styled.img`
-  width: 35px;
-  height: 35px;
+  height: 2rem;
   margin-right: 10px;
+`;
+
+export const Wrapper = styled.div`
+  grid-row: 2;
+  width: 85vw;
+  max-width: 900px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Overview = styled.div`
   background-color: ${props => props.theme.boxColor};
-  width: 80%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   font-size: 1.5rem;
   padding: 10px 20px;
   border-radius: 15px;
@@ -110,28 +238,49 @@ export const OverviewItem = styled.div`
 `;
 
 export const Description = styled.p`
-  width: 72vw;
-  max-width: 900px;
-  text-align: center;
+  width: 97%;
+  min-height: 100px;
+  max-height: 200px;
+  display: flex;
+  align-items: center;
   letter-spacing: 0.07rem;
   line-height: 1.2;
   margin: 40px 0px;
 `;
 
 export const Tabs = styled.div`
-  width: 80%;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  padding: 11px;
+  padding: 0;
   margin-top: 35px;
 `;
 
 export const Tab = styled.div<{ isActive: boolean }>`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-transform: uppercase;
   font-size: 1.2rem;
   background-color: ${props => props.isActive ? props.theme.hoverColor : props.theme.boxColor};
   padding: 10px 0;
   border-radius: 15px;
+  cursor: pointer;
+`;
+
+export const ChartWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 50px;
+  margin: 20px 0;
+`;
+
+export const ChartTabs = styled.div`
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 30px;
+  padding: 90px 0px 90px 0px;
 `;

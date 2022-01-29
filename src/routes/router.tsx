@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Coins from "../pages/Coins";
-import Coin from "../pages/Coin";
+import Main from "../pages/Main";
+import Detail from "../pages/Detail";
 
 function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route path="/" element={<Coins />} />
-          <Route path="/:coinId/*" element={<Coin />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/:coinId/*" element={<Detail />} />
         </Routes>
     </BrowserRouter>
   );
