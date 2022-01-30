@@ -28,7 +28,7 @@ function Main() {
       {coins ? (
         <CoinList>
           {coins.map((coin) => (
-            <Link to={`/${coin.id}`} state={coin}>
+            <Link to={`/${coin.id}/chsrt`} state={coin}>
               <Coin key={coin.id}>
                 <Icon src={urlIcon + coin.symbol.toLowerCase()} />
                 {coin.name}
