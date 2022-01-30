@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/Coin-Tracker/static/js/main.04307157.js",
+    "main.js": "/Coin-Tracker/static/js/main.4a0f2599.js",
     "static/media/react.svg": "/Coin-Tracker/static/media/react.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/Coin-Tracker/index.html",
-    "main.04307157.js.map": "/Coin-Tracker/static/js/main.04307157.js.map"
+    "main.4a0f2599.js.map": "/Coin-Tracker/static/js/main.4a0f2599.js.map"
   },
   "entrypoints": [
-    "static/js/main.04307157.js"
+    "static/js/main.4a0f2599.js"
   ]
 }
