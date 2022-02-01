@@ -9,6 +9,6 @@ declare module "styled-components" {
     accentColor: string;
     boxColor: string;
     hoverColor: string;
-    setTheme?: function;
+    scrollColor: string;
   }
 }

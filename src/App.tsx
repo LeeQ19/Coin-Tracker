@@ -1,29 +1,17 @@
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { useRecoilValue } from "recoil";
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from "./theme";
 import Router from "./routes/router";
 import { GlobalStyle } from "./GlobalStyle";
-
-const queryClient = new QueryClient();
+import { isDarkAtom } from "./atoms";
 
 function App() {
-  const [theme, setTheme] = useState(darkTheme);
+  const isDark = useRecoilValue(isDarkAtom);
 
   return (
-    <ThemeProvider
-      theme={{
-        ...theme,
-        setTheme: () => {
-          setTheme(theme => theme.id === "light" ? darkTheme : lightTheme)
-        }
-    }} >
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <Router />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme} >
+      <GlobalStyle />
+      <Router />
     </ThemeProvider>
   );
 }

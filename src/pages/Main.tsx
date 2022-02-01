@@ -10,7 +10,7 @@ import {
   ThemeBtn,
   Loader,
   CoinList,
-  Coin,
+  CoinBox,
   Icon,
   Footer,
 } from "../components/CustomElements";
@@ -27,15 +27,14 @@ function Main() {
       </Header>
       {coins ? (
         <CoinList>
-          {coins.map((coin) => (
+          {coins.map(coin => (
             <Link to={`/${coin.id}/chart`} state={coin}>
-              <Coin key={coin.id}>
+              <CoinBox key={coin.id}>
                 <Icon src={urlIcon + coin.symbol.toLowerCase()} />
                 {coin.name}
-              </Coin>
+              </CoinBox>
             </Link>
-          )
-          )}
+          ))}
         </CoinList>
       ) : (
         <Loader />

@@ -48,10 +48,26 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  *::-webkit-scrollbar {
+  width: 16px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    height: 56px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: ${(props) => props.theme.scrollColor};
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: ${(props) => props.theme.hoverColor};
+  }
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: ${props => props.theme.bgColor};
-    color: ${props => props.theme.textColor};
+    background-color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.textColor};
   }
   a {
     text-decoration: none;

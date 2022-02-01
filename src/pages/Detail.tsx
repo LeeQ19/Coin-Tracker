@@ -1,12 +1,5 @@
 import { useQuery } from "react-query";
-import {
-  Routes,
-  Route,
-  useLocation,
-  useParams,
-  Link,
-  useMatch,
-} from "react-router-dom";
+import { Routes, Route, useLocation, useParams, Link, useMatch } from "react-router-dom";
 
 import { ILocation, IInfo, IPrice } from "./interface";
 import { getInfo, getPrice } from "../components/api";
@@ -22,12 +15,12 @@ import {
   Loader,
   Icon,
   Wrapper,
-  Overview,
+  OverviewBox,
   OverviewItem,
   Description,
   Tabs,
   Tab,
-  Footer
+  Footer,
 } from "../components/CustomElements";
 
 function Detail() {
@@ -37,7 +30,6 @@ function Detail() {
   const match = useMatch("/:coinId/:tab");
   const { data: info } = useQuery<IInfo>(["info", coinId], () => getInfo(coinId!));
   const { data: price } = useQuery<IPrice>(["price", coinId], () => getPrice(coinId!), { refetchInterval: 5000 });
-
 
   return (
     <Container>
@@ -49,21 +41,19 @@ function Detail() {
             <Icon src={urlIcon + info.symbol.toLowerCase()} />
             {info.name}
           </SubTitle>
+        ) : state ? (
+          <SubTitle>
+            <Icon src={urlIcon + state.symbol.toLowerCase()} />
+            {state.name}
+          </SubTitle>
         ) : (
-          state ? (
-            <SubTitle>
-              <Icon src={urlIcon + state.symbol.toLowerCase()} />
-              {state.name}
-            </SubTitle>
-          ) : (
-            <SubTitle>{coinId}</SubTitle>
-          )
+          <SubTitle>{coinId}</SubTitle>
         )}
         <ThemeBtn />
       </Header>
       {info && price ? (
         <Wrapper>
-          <Overview>
+          <OverviewBox>
             <OverviewItem>
               <span>Rank</span>
               <span>{info.rank}</span>
@@ -74,27 +64,29 @@ function Detail() {
             </OverviewItem>
             <OverviewItem>
               <span>Price</span>
-              <span>$ {price.quotes.USD.price.toFixed(2)}</span>
+              <span>$ {price.quotes.USD.price.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
             </OverviewItem>
-          </Overview>
-          <Description>{info.description.length > 300 ? info.description.slice(0, 300) + "..." : info.description}</Description>
-          <Overview>
+          </OverviewBox>
+          <Description>
+            {info.description.length > 300 ? info.description.slice(0, 300) + "..." : info.description}
+          </Description>
+          <OverviewBox>
             <OverviewItem>
               <span>Total Supply</span>
-              <span>{price.total_supply}</span>
+              <span>{price.total_supply.toLocaleString()}</span>
             </OverviewItem>
             <OverviewItem />
             <OverviewItem>
               <span>Max Supply</span>
-              <span>{price.max_supply}</span>
+              <span>{price.max_supply.toLocaleString()}</span>
             </OverviewItem>
-          </Overview>
+          </OverviewBox>
           <Tabs>
             <Link to="price">
-              <Tab isActive={match?.params.tab === "price"} >price</Tab>
+              <Tab isActive={match?.params.tab === "price"}>price</Tab>
             </Link>
             <Link to="chart">
-              <Tab isActive={match?.params.tab === "chart"} >chart</Tab>
+              <Tab isActive={match?.params.tab === "chart"}>chart</Tab>
             </Link>
           </Tabs>
           <Routes>

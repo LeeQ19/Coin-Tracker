@@ -1,11 +1,13 @@
-import styled, { keyframes, ThemeContext } from "styled-components";
-import { useContext } from "react";
+import { memo } from "react";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import loaderLogo from "../icons/react.svg";
-import backLight from "../icons/backLight.png";
-import backDark from "../icons/backDark.png";
+import lightBack from "../icons/lightBack.png";
+import darkBack from "../icons/darkBack.png";
 import lightTheme from "../icons/lightTheme.png";
 import darkTheme from "../icons/darkTheme.png";
+import { isDarkAtom } from "../atoms";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -17,9 +19,9 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
-  height: 8vh;
+  height: 10vh;
   min-height: 80px;
-  max-height: 120px;
+  max-height: 130px;
   grid-row: 1;
   background-color: ${props => props.theme.bgHeaderColor};
   color: ${props => props.theme.accentColor};
@@ -37,7 +39,6 @@ export const Title = styled.div`
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  margin: 5px;
 `;
 
 export const SubTitle = styled.div`
@@ -49,9 +50,8 @@ export const SubTitle = styled.div`
   font-weight: 500;
 `;
 
-export const BackBtn = (() => {
-  const { id } = useContext(ThemeContext);
-  const isLight = (id === "light");
+export const BackBtn = memo(() => {
+  const isDark = useRecoilValue(isDarkAtom);
 
   const BackImg = styled.img`
     height: 7vh;
@@ -69,29 +69,29 @@ export const BackBtn = (() => {
     padding: 10px;
     border-radius: 100%;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: ${props => props.theme.hoverColor};
-    };
+    }
   `;
-  
+
   return (
     <BackBox>
       <Link to="/">
-        <BackImg src={`${isLight ? backLight : backDark}`} />
+        <BackImg src={`${isDark ? darkBack : lightBack}`} />
       </Link>
     </BackBox>
   );
 });
 
-export const ThemeBtn = (() => {
-  const { id, setTheme } = useContext(ThemeContext);
-  const isLight = (id === "light");
-  
+export const ThemeBtn = memo(() => {
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
+
+
   const ThemeImg = styled.img`
-    height: 5vh;
-    min-height: 40px;
+    height: 6vh;
+    min-height: 30px;
     max-height: 70px;
-    margin: 2px;
+    margin-bottom: 2px;
   `;
 
   const ThemeBox = styled.div`
@@ -102,25 +102,25 @@ export const ThemeBtn = (() => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 10px 1.2vmin;
+    padding: 0.7vmin 1.6vmin;
     border-radius: 20%;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: ${props => props.theme.hoverColor};
-    };
+    }
   `;
-  
+
   return (
-    <ThemeBox onClick={setTheme}>
-      <ThemeImg src={`${isLight ? darkTheme : lightTheme}`} />
-      <p>{isLight ? "Dark" : "Light"}</p>
+    <ThemeBox onClick={() => {setIsDark((v) => !v)}} >
+      <ThemeImg src={`${isDark ? darkTheme : lightTheme}`} />
+      <p>{isDark ? "Light" : "Dark"}</p>
     </ThemeBox>
   );
 });
 
-export const Footer = (() => {
+export const Footer = memo(() => {
   const Foot = styled.div`
     grid-row: 3;
     max-height: 10vh;
@@ -132,7 +132,7 @@ export const Footer = (() => {
     padding: 10px 0;
     margin-top: 50px;
   `;
-  
+
   return (
     <Foot>
       <p>Designed by LeeQ19</p>
@@ -142,7 +142,7 @@ export const Footer = (() => {
   );
 });
 
-export const Loader = (() => {
+export const Loader = () => {
   const loaderLogoSpin = keyframes`
     from {
       transform: rotate(0deg);
@@ -153,7 +153,7 @@ export const Loader = (() => {
   `;
 
   const LoaderLogo = styled.img.attrs({
-    src: `${loaderLogo}`
+    src: `${loaderLogo}`,
   })`
     width: 50vmin;
     max-width: 500px;
@@ -167,24 +167,25 @@ export const Loader = (() => {
     justify-content: center;
     align-items: center;
   `;
-  
+
   return (
     <LoaderBox>
       <LoaderLogo />
       <SubTitle>Loading...</SubTitle>
     </LoaderBox>
   );
-});
+};
 
 export const CoinList = styled.ul`
   grid-row: 2;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 20px;
 `;
 
-export const Coin = styled.li`
+export const CoinBox = styled.li`
   background-color: ${props => props.theme.boxColor};
   width: 85vw;
   max-width: 900px;
@@ -202,7 +203,7 @@ export const Coin = styled.li`
 `;
 
 export const Icon = styled.img`
-  height: 2rem;
+  height: 1.7rem;
   margin-right: 10px;
 `;
 
@@ -210,13 +211,14 @@ export const Wrapper = styled.div`
   grid-row: 2;
   width: 85vw;
   max-width: 900px;
+  min-height: 100vh;
   justify-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const Overview = styled.div`
+export const OverviewBox = styled.div`
   background-color: ${props => props.theme.boxColor};
   width: 100%;
   display: grid;
@@ -263,7 +265,7 @@ export const Tab = styled.div<{ isActive: boolean }>`
   align-items: center;
   text-transform: uppercase;
   font-size: 1.2rem;
-  background-color: ${props => props.isActive ? props.theme.hoverColor : props.theme.boxColor};
+  background-color: ${props => (props.isActive ? props.theme.hoverColor : props.theme.boxColor)};
   padding: 10px 0;
   border-radius: 15px;
   cursor: pointer;
@@ -271,11 +273,10 @@ export const Tab = styled.div<{ isActive: boolean }>`
 
 export const ChartWrapper = styled.div`
   width: 100%;
-  height: 40vh;
   display: grid;
   grid-template-columns: 4fr 1fr;
   gap: 50px;
-  margin: 20px 0;
+  margin-top: 20px;
 `;
 
 export const ChartTabs = styled.div`
@@ -283,4 +284,28 @@ export const ChartTabs = styled.div`
   grid-template-rows: repeat(4, 1fr);
   gap: 30px;
   padding: 90px 0px 90px 0px;
+`;
+
+export const PriceWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+export const PriceBox = styled.div`
+  background-color: ${props => props.theme.boxColor};
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin: 10px 0;
+  span:first-child {
+    font-size: 1.3rem;
+  }
 `;

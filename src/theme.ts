@@ -8,7 +8,8 @@ export const darkTheme: DefaultTheme = {
   accentColor: "#ffffff",
   boxColor: "#373737",
   hoverColor: "#4d4d4d",
-}
+  scrollColor: "#888888",
+};
 
 export const lightTheme: DefaultTheme = {
   id: "light",
@@ -18,4 +19,5 @@ export const lightTheme: DefaultTheme = {
   accentColor: "#030303",
   boxColor: "#f2f2f2",
   hoverColor: "#e5e5e5",
+  scrollColor: "#aaaaaa",
 };
