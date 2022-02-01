@@ -2,7 +2,7 @@
 
 ## Try it out
 
-[https://leeq19.github.io/Coin-Tracker/](https://leeq19.github.io/Coin-Tracker/)
+[https://leeq19.github.io/CoinTracker/](https://leeq19.github.io/CoinTracker/)
 
 
 ## Tech stack
