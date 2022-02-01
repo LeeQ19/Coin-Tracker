@@ -5,7 +5,7 @@
 [https://leeq19.github.io/Coin-Tracker/](https://leeq19.github.io/Coin-Tracker/)
 
 
-# Tech stack
+## Tech stack
 
 + TypeScript
 + React JS
@@ -16,5 +16,5 @@
 + ApexCharts
 
 
-# Data source
+## Data source
 Coinpaprika API ([https://coinpaprika.com/api/](https://coinpaprika.com/api/))
