@@ -40,7 +40,7 @@ function Chart() {
         series={[{ data: data }]}
         options={{
           theme: {
-            mode: (isDark ? "dark" : "light"),
+            mode: isDark ? "dark" : "light",
           },
           chart: {
             toolbar: {
@@ -49,9 +49,6 @@ function Chart() {
             background: "transparent",
           },
           tooltip: {
-            x: {
-              show: false,
-            },
             custom: function ({ seriesIndex, dataPointIndex, w }) {
               const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
               const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
@@ -59,28 +56,28 @@ function Chart() {
               const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
               return (
                 `<div class="apexcharts-tooltip-candlestick" style="display: grid; gap: 5px; padding: 5px;" >
-                  <div>
-                    Open: 
+                  <div style="display: flex; justify-content: space-between">
+                    <span>Open:&nbsp;&nbsp;</span>
                     <span class="value" >
-                      $ ${o.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      $&nbsp;${o.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                     </span>
                   </div>
-                  <div>
-                    High: 
+                  <div style="display: flex; justify-content: space-between">
+                    <span>High:&nbsp;&nbsp;</span>
                     <span class="value" >
-                      $ ${h.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      $&nbsp;${h.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                     </span>
                   </div>
-                  <div>
-                    Low: 
+                  <div style="display: flex; justify-content: space-between">
+                    <span>Low:&nbsp;&nbsp;</span>
                     <span class="value" >
-                      $ ${l.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      $&nbsp;${l.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                     </span>
                   </div>
-                  <div>
-                    Close: 
+                  <div style="display: flex; justify-content: space-between">
+                    <span>Close:&nbsp;&nbsp;</span>
                     <span class="value" >
-                      $ ${c.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                      $&nbsp;${c.toLocaleString("en", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                     </span>
                   </div>
                 </div>`
