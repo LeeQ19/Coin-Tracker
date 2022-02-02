@@ -1,4 +1,4 @@
-# Real-time cryptocurrency information service
+# Real-Time Cryptocurrency Information Service
 
 ## Try it out
 
@@ -8,9 +8,9 @@
 ## Tech stack
 
 + TypeScript
-+ React JS
++ React
 + styled-components
-+ React Router
++ React Router Dom
 + React Query
 + Recoil
 + ApexCharts
