@@ -1,4 +1,4 @@
-# Real-time Cryptocurrency Information Service
+# Real-Time Cryptocurrency Information Service
 
 ## Try it out
 
