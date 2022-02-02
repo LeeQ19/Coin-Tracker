@@ -1,4 +1,4 @@
-# Real-time cryptocurrency information service
+# Real-time Cryptocurrency Information Service
 
 ## Try it out
 
@@ -8,13 +8,14 @@
 ## Tech stack
 
 + TypeScript
-+ React JS
++ React
 + styled-components
-+ React Router
++ React Router DOM
 + React Query
 + Recoil
 + ApexCharts
 
 
 ## Data source
+
 Coinpaprika API ([https://coinpaprika.com/api/](https://coinpaprika.com/api/))
